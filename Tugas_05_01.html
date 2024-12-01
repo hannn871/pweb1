@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galeri Foto Alumni UNIKU</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4CAF50;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .gallery img {
+      width: 150px;
+      height: auto;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      position: relative;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 80%;
+      text-align: center;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .modal-content button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Galeri Foto Alumni UNIKU</h1>
+
+  <!-- Galeri -->
+  <div class="gallery">
+    <img src="alumni1.jpg" alt="Foto Alumni 1">
+    <img src="alumni2.jpeg" alt="Foto Alumni 2">
+    <img src="alumni3.jpg" alt="Foto Alumni 3">
+    <img src="alumni4.jpg" alt="Foto Alumni 4">
+    <img src="alumni5.jpg" alt="Foto Alumni 5">
+    <img src="alumni6.jpg" alt="Foto Alumni 6">
+  </div>
+
+  <!-- Modal -->
+  <div class="modal">
+    <div class="modal-content">
+      <button id="closeModal">Close</button>
+      <img src="" alt="Foto Alumni" id="modalImage">
+    </div>
+  </div>
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="gallery.js"></script>
+</body>
+
+</html>
