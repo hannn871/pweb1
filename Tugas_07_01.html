@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Lowongan Kerja</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Manajemen Lowongan Kerja</h2>
+        <form id="jobForm">
+            <div class="form-group">
+                <label for="judul">Judul</label>
+                <input type="text" class="form-control" id="judul" required>
+            </div>
+            <div class="form-group">
+                <label for="perusahaan">Perusahaan</label>
+                <input type="text" class="form-control" id="perusahaan" required>
+            </div>
+            <div class="form-group">
+                <label for="lokasi">Lokasi</label>
+                <input type="text" class="form-control" id="lokasi" required>
+            </div>
+            <div class="form-group">
+                <label for="deskripsi">Deskripsi</label>
+                <textarea class="form-control" id="deskripsi" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Tambah Lowongan</button>
+        </form>
+        <h3 class="mt-5">Daftar Lowongan</h3>
+        <table class="table table-striped" id="jobTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Judul</th>
+                    <th>Perusahaan</th>
+                    <th>Lokasi</th>
+                    <th>Deskripsi</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbz3UPejcEyGYxaOcUrtsMg5BLp9mFGi4teygVGX1v6F01gErB-1b1cYFkwA57o/exec';
+
+        $(document).ready(function () {
+            loadJobs();
+
+            // Submit Form
+            $('#jobForm').submit(function (e) {
+                e.preventDefault();
+                const job = {
+                    action: 'create',
+                    judul: $('#judul').val(),
+                    perusahaan: $('#perusahaan').val(),
+                    lokasi: $('#lokasi').val(),
+                    deskripsi: $('#deskripsi').val()
+                };
+
+                $.post(API_URL, JSON.stringify(job), function (response) {
+                    alert(response.message);
+                    loadJobs(); // Reload jobs after adding
+                }, 'json');
+            });
+
+            // Load Jobs
+            function loadJobs() {
+                $.get(API_URL, { action: 'read' }, function (response) {
+                    const tableBody = $('#jobTable tbody');
+                    tableBody.empty();
+                    response.jobs.forEach(job => {
+                        tableBody.append(`
+                            <tr>
+                                <td>${job.ID}</td>
+                                <td>${job.Judul}</td>
+                                <td>${job.Perusahaan}</td>
+                                <td>${job.Lokasi}</td>
+                                <td>${job.Deskripsi}</td>
+                            </tr>
+                        `);
+                    });
+                }, 'json');
+            }
+        });
+    </script>
+</body>
+</html>
